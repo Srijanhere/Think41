@@ -7,7 +7,7 @@ const Order = require('../models/order.js');
 router.get('/', async (req, res) => {
   try {
     // const users = await User.find({});
-    const users = await User.find().limit(20);
+    const users = await User.find();
     console.log(users);
     
 
