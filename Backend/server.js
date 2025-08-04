@@ -3,12 +3,16 @@ const mongoose = require('mongoose');
 const User = require('./models/user.js');
 const customerRoutes = require('./routes/customerRoutes.js');
 const orderRoutes = require('./routes/orderRoutes.js');
+const cors = require("cors")
 const dotenv = require('dotenv');
 const app = express();
 app.use(express.json());
 dotenv.config();
 
-
+app.use(cors({
+  origin: 'http://localhost:5173', // or use "*" in dev, but be specific in prod
+  credentials: true,
+}));
 const mongoURI = process.env.MONGO_URI ;
 app.use('/api/customers', customerRoutes);
 app.use('/api/orders', orderRoutes);
