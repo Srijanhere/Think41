@@ -1,38 +1,23 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
+const UserSchema = new mongoose.Schema({
+  id: Number,
   first_name: String,
   last_name: String,
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
+  email: String,
   age: Number,
-  gender: {
-    type: String,
-    enum: ['M', 'F'],
+  gender: String,
+  address: {
+    street_address: String,
+    postal_code: String,
+    city: String,
+    state: String,
+    country: String,
+    latitude: Number,
+    longitude: Number
   },
-  state: String,
-  street_address: String,
-  postal_code: String,
-  city: String,
-  country: String,
-  latitude: Number,
-  longitude: Number,
-  traffic_source: String  // ← no enum at all
-,
-  created_at: {
-    type: Date,
-    default: Date.now,
-  },
+  traffic_source: String,
+  created_at: Date
 });
 
-
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', UserSchema);

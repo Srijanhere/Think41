@@ -3,15 +3,10 @@ const csv = require('csvtojson');
 const dotenv = require('dotenv');
 const User = require('./models/user.js');
 const Order = require('./models/order');
+mongoose.set('bufferCommands', false);
 
 dotenv.config();
 
-const mongoURI = process.env.MONGO_URI ;
-
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 
 const importUsers = async () => {
   const users = await csv().fromFile("./user.csv");
@@ -25,12 +20,12 @@ const importOrders = async () => {
 
 const run = async () => {
   try {
-    await mongoose.connection.dropDatabase(); // Optional: clear existing
+    await mongoose.connection.dropDatabase();
     await importUsers();
     await importOrders();
-    console.log('✅ Users and Orders imported successfully!');
+    console.log(' Users and Orders imported successfully!');
   } catch (err) {
-    console.error('❌ Error during import:', err);
+    console.error(' Error during import:', err);
   } finally {
     mongoose.disconnect();
   }
